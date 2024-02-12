@@ -18,11 +18,11 @@ public class IPokemonMetadataProviderTest
 
     @BeforeEach
     public void setUp() throws PokedexException{
-        when(metadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata( 0, "Salamèche", 10,10, 10));
+        when(metadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata( 1, "Salamèche", 10,10, 10));
     }
 
     @Test
     public void testGetPokemonMetadata() throws PokedexException {
-        assertEquals(0, metadataProvider.getPokemonMetadata(0).getIndex());
+        assertEquals(1, metadataProvider.getPokemonMetadata(1).getIndex());
     }
 }
