@@ -15,6 +15,7 @@ http://maven.apache.org/maven-v4_0_0.xsd"
         <plugins>
 
         </plugins>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
     </build>
     <dependencies>
         <dependency>
@@ -26,7 +27,7 @@ http://maven.apache.org/maven-v4_0_0.xsd"
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.4.0</version>
+            <version>3.3.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -34,6 +35,4 @@ http://maven.apache.org/maven-v4_0_0.xsd"
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
-
 </project>
