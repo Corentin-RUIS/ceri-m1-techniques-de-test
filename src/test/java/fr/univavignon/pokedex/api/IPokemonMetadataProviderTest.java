@@ -22,7 +22,17 @@ public class IPokemonMetadataProviderTest
     }
 
     @Test
-    public void testGetPokemonMetadata() throws PokedexException {
-        assertEquals(1, metadataProvider.getPokemonMetadata(1).getIndex());
+    public void testGetPokemonMetadataFail() throws PokedexException {
+        when(metadataProvider.getPokemonMetadata(-1)).thenThrow(new PokedexException("Index non valide"));
+        PokemonMetadata metadata = metadataProvider.getPokemonMetadata(-1);
+
+        assertEquals(1, metadata.getIndex());
+    }
+
+    @Test
+    public void testGetPokemonMetadataSuccess() throws PokedexException {
+        PokemonMetadata metadata = metadataProvider.getPokemonMetadata(1);
+
+        assertEquals(1, metadata.getIndex());
     }
 }
