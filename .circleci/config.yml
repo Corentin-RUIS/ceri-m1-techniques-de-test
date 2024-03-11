@@ -36,9 +36,5 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        slug: Corentin-RUIS/ceri-m1-techniques-de-test
+     
 
