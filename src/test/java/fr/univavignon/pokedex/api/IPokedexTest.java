@@ -3,12 +3,15 @@ package fr.univavignon.pokedex.api;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import java.util.stream.Collectors;
+
 
 public class IPokedexTest {
     private IPokedex pokedex;
@@ -18,13 +21,12 @@ public class IPokedexTest {
     @Before
     public void setUp() throws PokedexException {
         pokedex = mock(IPokedex.class);
-        when(pokedex.getPokemons()).thenReturn(
-                List.of(
-                        new Pokemon(0, "Bulbizarre", 120, 126, 90, 0, 100, 0, 0, 0),
-                        new Pokemon(1, "Salamèche", 126, 126, 90, 0, 150, 0, 0, 0),
-                        new Pokemon(2, "Kaiminus", 220, 126, 55, 0, 200, 0, 0, 0)
-                )
-        );
+        when(pokedex.getPokemons()).thenReturn((List<Pokemon>) when(pokedex.getPokemons()).thenReturn(Arrays.asList(
+                new Pokemon(0, "Bulbizarre", 120, 126, 90, 0, 100, 0, 0, 0),
+                new Pokemon(1, "Salamèche", 126, 126, 90, 0, 150, 0, 0, 0),
+                new Pokemon(2, "Kaiminus", 220, 126, 55, 0, 200, 0, 0, 0)
+        )));
+
         when (pokedex.getPokemon(0)).thenReturn(
             new Pokemon(0, "Bulbizarre", 126, 126, 90, 0, 0, 0, 0, 0)
         );
@@ -53,7 +55,8 @@ public class IPokedexTest {
     public void testGetPokemonsSorted() {
         List<Pokemon> pokemons = pokedex.getPokemons();
         Comparator<Pokemon> comparator = Comparator.comparing(Pokemon::getName);
-        List<Pokemon> sortedPokemons = pokemons.stream().sorted(comparator).toList();
+        List<Pokemon> sortedPokemons = pokemons.stream().sorted(comparator).collect(Collectors.toList());
+
         assertEquals("Bulbizarre", sortedPokemons.get(0).getName());
         assertEquals("Kaiminus", sortedPokemons.get(1).getName());
         assertEquals("Salamèche", sortedPokemons.get(2).getName());
