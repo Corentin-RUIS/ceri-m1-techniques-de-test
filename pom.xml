@@ -34,7 +34,9 @@ http://maven.apache.org/maven-v4_0_0.xsd"
                 </executions>
             </plugin>
         </plugins>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+
+
     </build>
     <dependencies>
         <dependency>
