@@ -36,6 +36,7 @@ public class IPokemonTrainerFactoryTest {
         assertNotNull(myPokemonTrainer);
     }
 
+
     @Test
     public void getNameTest() {
         assertEquals(name, myPokemonTrainer.getName());

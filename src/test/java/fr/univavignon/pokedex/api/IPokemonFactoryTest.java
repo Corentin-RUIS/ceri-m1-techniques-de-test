@@ -29,3 +29,4 @@ public class IPokemonFactoryTest {
         assertEquals(126, pokemon.getHp(), 0);
     }
 }
+
