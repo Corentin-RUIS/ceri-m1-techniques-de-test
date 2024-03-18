@@ -1,39 +1,39 @@
 package fr.univavignon.pokedex.api;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
-public class IPokemonMetadataProviderTest
-{
-    @Mock
-    public IPokemonMetadataProvider metadataProvider;
+public class IPokemonMetadataProviderTest {
 
+    IPokemonMetadataProvider myDataProvider;
+    PokemonMetadata bulbizarreMetadata;
+    PokemonMetadata aqualiMetadata;
+    @Before
+    public void initTestEnvironment() throws PokedexException {
+        myDataProvider = new PokemonMetadataProvider();
 
-
-    @BeforeEach
-    public void setUp() throws PokedexException{
-        when(metadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata( 1, "Salamèche", 10,10, 10));
+        bulbizarreMetadata = myDataProvider.getPokemonMetadata(0);
+        aqualiMetadata = myDataProvider.getPokemonMetadata(133);
     }
-
-    //@Test
-    //public void testGetPokemonMetadataFail() throws PokedexException {
-        //when(metadataProvider.getPokemonMetadata(1)).thenThrow(new PokedexException("Index non valide"));
-        //PokemonMetadata metadata = metadataProvider.getPokemonMetadata(1);
-
-        //assertEquals(1, metadata.getIndex());
-    //}
 
     @Test
-    public void testGetPokemonMetadataSuccess() throws PokedexException {
-        PokemonMetadata metadata = metadataProvider.getPokemonMetadata(1);
-
-        assertEquals(1, metadata.getIndex());
+    public void TestGetPokemonMetadata() throws PokedexException {
+        assertEquals(myDataProvider.getPokemonMetadata(0), bulbizarreMetadata);
+        assertEquals(myDataProvider.getPokemonMetadata(133), aqualiMetadata);
     }
+    @Test
+    public void TestGetPokemonMetadataIndex() throws PokedexException {
+        assertEquals(myDataProvider.getPokemonMetadata(0).getIndex(), bulbizarreMetadata.getIndex());
+    }
+    @Test
+    public void TestPokedexException() {
+        assertThrows(PokedexException.class, () -> {myDataProvider.getPokemonMetadata(-58);
+        });
+        assertThrows(PokedexException.class, () -> {myDataProvider.getPokemonMetadata(1000);
+        });
+    }
+
 }

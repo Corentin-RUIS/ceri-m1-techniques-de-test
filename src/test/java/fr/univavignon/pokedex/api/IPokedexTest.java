@@ -14,54 +14,62 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 public class IPokedexTest {
+        IPokedex myPokedex;
+        Pokemon myBulbizarre;
+        Pokemon myAquali;
+        PokemonFactory pokemonFactory;
+        PokemonMetadataProvider pokemonMetadataProvider;
+        PokedexFactory pokedexFactory;
 
-    @Mock
-    public IPokedex myPokedex;
+        @Before
+        public void initTestEnvironment() {
+            pokemonFactory = new PokemonFactory();
+            pokemonMetadataProvider = new PokemonMetadataProvider();
+            pokedexFactory = new PokedexFactory();
+            myPokedex = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
+            myBulbizarre = myPokedex.createPokemon(0, 613, 64, 4000, 4);
+            myAquali = myPokedex.createPokemon(133, 2729, 202, 5000, 4);
+            myPokedex.addPokemon(myBulbizarre);
+            myPokedex.addPokemon(myAquali);
 
-    @Mock
-    public IPokemonFactory pokemonFactory;
+        }
+        @Test
+        public void addPokemonTest() throws PokedexException {
+            int index = myPokedex.addPokemon(myBulbizarre);
+            assertEquals(myBulbizarre, myPokedex.getPokemon(myBulbizarre.getIndex()));
+        }
 
-    Pokemon myBulbizarre;
+        @Test
+        public void sizeTest() {
+            assertEquals(myPokedex.size(), 2);
+        }
 
-    Pokemon myAquali;
+        @Test
+        public void getPokemonMetadataTest() throws PokedexException {
+            int index = myPokedex.getPokemon(0).getIndex();
+            String name = myPokedex.getPokemon(0).getName();
+            int attack = myPokedex.getPokemon(0).getAttack();
+            int defense = myPokedex.getPokemon(0).getDefense();
+            int stamina = myPokedex.getPokemon(0).getStamina();
+            assertEquals(index, pokemonMetadataProvider.getPokemonMetadata(0).getIndex());
+            assertEquals(name, pokemonMetadataProvider.getPokemonMetadata(0).getName());
+            assertEquals(attack, pokemonMetadataProvider.getPokemonMetadata(0).getAttack());
+            assertEquals(defense, pokemonMetadataProvider.getPokemonMetadata(0).getDefense());
+            assertEquals(stamina, pokemonMetadataProvider.getPokemonMetadata(0).getStamina());
+            assertEquals(pokemonMetadataProvider.getPokemonMetadata(0), myPokedex.getPokemonMetadata(0));
+        }
 
-    @Mock
-    public IPokemonMetadataProvider pokemonMetadataProvider;
+        @Test
+        public void throwPokedexExceptionTest() throws PokedexException {
+            assertThrows(PokedexException.class, () -> {
+                myPokedex.getPokemon(156);
+            });
+        }
 
-    @Mock
-    public IPokedexFactory pokedexFactory;
+        @Test
+        public void getSortedList() {
+            assertNotNull(myPokedex.getPokemons());
+            assertNotNull(myPokedex.getPokemons(PokemonComparators.NAME));
+        }
 
-    @Before
-    public void initTestEnvironment() throws PokedexException {
-        MockitoAnnotations.initMocks(this);
-
-        when(pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory)).thenReturn(myPokedex);
-
-        myBulbizarre = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
-        myAquali = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4);
-
-        when(myPokedex.createPokemon(0, 613, 64, 4000, 4)).thenReturn(myBulbizarre);
-        when(myPokedex.createPokemon(133, 2729, 202, 5000, 4)).thenReturn(myAquali);
-
-        when(myPokedex.addPokemon(myBulbizarre)).thenReturn(0);
-        when(myPokedex.addPokemon(myAquali)).thenReturn(1);
     }
-    @Test
-    public void addPokemonTest() throws PokedexException {
-        int index = myPokedex.addPokemon(myBulbizarre);
-        assertEquals(1, index);
-    }
-
-    @Test
-    public void sizeTest() {
-        assertEquals(myPokedex.size(), 0);
-    }
-
-
-
-    @Test
-    public void getUnmodifiableList() {
-        assertNotNull(myPokedex.getPokemons());
-        assertNotNull(myPokedex.getPokemons(PokemonComparators.NAME));
-    }
-}
