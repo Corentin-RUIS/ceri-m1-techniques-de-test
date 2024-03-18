@@ -5,3 +5,5 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory{
     public PokemonTrainer createTrainer(String name, Team team, IPokedexFactory pokedexFactory) {
         return new PokemonTrainer(name, team, pokedexFactory.createPokedex(new PokemonMetadataProvider(), new PokemonFactory()));    }
 }
+
+

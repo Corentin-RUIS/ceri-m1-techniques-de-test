@@ -61,3 +61,4 @@ public class Pokedex implements IPokedex {
         return pokemonMetadataProvider.getPokemonMetadata(index);
     }
 }
+
