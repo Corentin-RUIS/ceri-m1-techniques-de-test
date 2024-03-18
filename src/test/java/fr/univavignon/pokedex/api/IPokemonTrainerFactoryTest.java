@@ -2,30 +2,50 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class IPokemonTrainerFactoryTest {
-    private IPokemonTrainerFactory pokemonTrainerFactory;
-    private IPokedexFactory pokedexFactoryMock;
-    private IPokedex pokedexMock;
+
+    IPokemonTrainerFactory myTrainerFactory;
+    IPokedexFactory myPokedexFactory;
+    PokemonTrainer myPokemonTrainer;
+    String name;
+    Team team;
 
     @Before
-    public void setUp() throws PokedexException {
-        pokemonTrainerFactory = mock(IPokemonTrainerFactory.class);
-        pokedexFactoryMock = mock(IPokedexFactory.class);
-        PokemonTrainer trainer = new PokemonTrainer("Enzo", Team.MYSTIC, pokedexMock);
-        when(pokemonTrainerFactory.createTrainer("Enzo", Team.MYSTIC, pokedexFactoryMock))
-                .thenReturn(new PokemonTrainer("Enzo", Team.MYSTIC, pokedexMock));
+    public void initTestEnvironment() {
+        // Création des mocks
+        myTrainerFactory = mock(IPokemonTrainerFactory.class);
+        myPokedexFactory = mock(IPokedexFactory.class);
+        IPokedex myPokedex = mock(IPokedex.class);
+        team = Team.MYSTIC;
+        name = "TrainerName";
+
+        // Définition du comportement du mock myTrainerFactory
+        when(myTrainerFactory.createTrainer(name, team, myPokedexFactory)).thenReturn(new PokemonTrainer(name, team, myPokedex));
+
+        // Appel de la méthode createTrainer pour obtenir le mock de PokemonTrainer
+        myPokemonTrainer = myTrainerFactory.createTrainer(name, team, myPokedexFactory);
     }
 
     @Test
-    public void testCreateTrainer() {
-        PokemonTrainer pokemonTrainer = new PokemonTrainer("Enzo", Team.MYSTIC, pokedexMock);
-        assertEquals("Enzo", pokemonTrainer.getName());
-        assertEquals(Team.MYSTIC, pokemonTrainer.getTeam());
-        assertEquals(pokedexMock, pokemonTrainer.getPokedex());
+    public void createTrainerTest() {
+        assertNotNull(myPokemonTrainer);
+    }
+
+    @Test
+    public void getNameTest() {
+        assertEquals(name, myPokemonTrainer.getName());
+    }
+
+    @Test
+    public void getTeam() {
+        assertEquals(team, myPokemonTrainer.getTeam());
+    }
+
+    @Test
+    public void getPokedex() {
+        assertNotNull(myPokemonTrainer.getPokedex());
     }
 }
