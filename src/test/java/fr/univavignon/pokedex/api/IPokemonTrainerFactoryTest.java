@@ -27,10 +27,12 @@ public class IPokemonTrainerFactoryTest {
 
         // Appel de la méthode createTrainer pour obtenir le mock de PokemonTrainer
         myPokemonTrainer = myTrainerFactory.createTrainer(name, team, myPokedexFactory);
+
     }
 
     @Test
     public void createTrainerTest() {
+        myPokemonTrainer = myTrainerFactory.createTrainer(name, team, myPokedexFactory);
         assertNotNull(myPokemonTrainer);
     }
 
