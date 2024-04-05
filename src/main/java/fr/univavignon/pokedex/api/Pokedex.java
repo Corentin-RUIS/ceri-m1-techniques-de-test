@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Pokedex implements IPokedex {
+
+    /** ttt.*/
     List<Pokemon> pokemonList;
 
     IPokemonFactory pokemonFactory;
@@ -30,8 +32,8 @@ public class Pokedex implements IPokedex {
 
     @Override
     public Pokemon getPokemon(int id) throws PokedexException {
-        for(Pokemon pokemon : pokemonList) {
-            if(pokemon.getIndex() == id) {
+        for (Pokemon pokemon : pokemonList) {
+            if (pokemon.getIndex() == id) {
                 return pokemon;
             }
         }
