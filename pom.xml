@@ -101,6 +101,28 @@
             </execution>
         </executions>
     </plugin>
+        <!-- Plugin Javadoc -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+                <show>protected</show>
+                <nohelp>true</nohelp>
+                <linksource>true</linksource>
+                <charset>UTF-8</charset>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>javadoc</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
 
 </plugins>
 <!-- Répertoire source des tests -->
