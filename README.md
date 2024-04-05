@@ -40,5 +40,4 @@ Si vous ne spécifiez pas de tag, le dernier commit à la date-heure de la fin d
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Corentin-RUIS/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Corentin-RUIS/ceri-m1-techniques-de-test/tree/master)
 
-[![Checkstyle](https://img.shields.io/badge/checkstyle-passing-brightgreen.svg)](checksttyle-result.svg)
-
+[![Checkstyle](checkstyle-result.svg)](https://github.com/Corentin-RUIS/ceri-m1-techniques-de-test/blob/master/)
