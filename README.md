@@ -1,5 +1,5 @@
 # UCE Génie Logiciel Avancé : Techniques de tests
-## TP de Ruis Corentin
+## TP de Ruis Corentin Groupe M1-ILSEN-CLA
 ## Introduction
 
 Vous allez à travers ces projet mettre en application une partie des aspects évoqués en cours vis à vis des techniques de tests.  
